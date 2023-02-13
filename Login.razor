@@ -1,0 +1,31 @@
+﻿@page "/Login"
+@layout EmptyLayout
+@inject NavigationManager NM
+
+<div class="container-fluid">
+    <div class="row d-flex px-sm-3">
+        <div class="col-lg-6 offset-lg-3 d-flex p-sm-3">
+            <RadzenCard class="d-flex m-sm-5 p-0 rz-border-radius-4 rz-shadow-10" Style="width: 100%; flex-direction: column; overflow: hidden; align-items: stretch;">
+                <RadzenCard class="rz-shadow-0 rz-border-radius-0 animated-bg p-5" style="text-align: center;">
+                    <RadzenText TextStyle="TextStyle.DisplayH3" TagName="TagName.H2" class="rz-color-white mb-0">Login</RadzenText>
+                </RadzenCard>
+                <RadzenCard class="rz-shadow-0 p-5">
+                    <RadzenTemplateForm Data=@("SimpleLogin")>
+                        <RadzenLogin AllowRegister="false" AllowResetPassword="false" Login=@(args => OnLogin(args, "Simple login")) />
+                    </RadzenTemplateForm>
+                </RadzenCard>
+            </RadzenCard>
+        </div>
+    </div>
+</div>
+@code {
+
+    string userName = "admin";
+    string password = "admin";
+    bool rememberMe = true;
+
+    void OnLogin(LoginArgs args, string name)
+    {
+        NM.NavigateTo("upload");
+    }
+}
