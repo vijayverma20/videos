@@ -1,0 +1,62 @@
+﻿@inherits LayoutComponentBase
+
+<PageTitle>Amicasoft</PageTitle>
+<RadzenNotification />
+<RadzenLayout class="rz-shadow-3">
+    <RadzenHeader class="rz-shadow-5 rz-background-color-secondary-light">
+        <div class="d-flex align-items-center justify-content-between">
+            <div class="d-flex align-items-center justify-content-start">
+                <RadzenSidebarToggle Click="@(() => {sidebarExpanded = !sidebarExpanded; sidebar1Expanded = !sidebar1Expanded;})" />
+                <RadzenText style="overflow: hidden; white-space: nowrap; text-overflow: ellipsis;
+                        margin-bottom:0px; color: var(--rz-text-contrast-color)"
+                            Text="Amicasoft" TextStyle="TextStyle.H6" />
+            </div>
+            <RadzenProfileMenu class="rz-background-color-secondary-light">
+                <Template>
+                    <RadzenIcon Icon="account_circle" Style="font-size:30px" />
+                </Template>
+                <ChildContent>
+                    <div class="d-flex flex-column pt-3">
+                        <div class="d-flex align-items-center justify-content-center">
+                            <div class="initial-avatar">P</div>
+                        </div>
+                        <div class="d-flex align-items-center justify-content-center">
+                            <RadzenText class="pt-2" style="overflow: hidden; white-space: nowrap; text-overflow: ellipsis;"
+                                        Text="User Name" TextStyle="TextStyle.Subtitle1" />
+                        </div>
+                    </div>
+                    <hr style="    color: gray;    padding: 0px;    margin: 5px;" />
+                    <RadzenProfileMenuItem Text="Log Out" Path="login" Icon="logout"></RadzenProfileMenuItem>
+                </ChildContent>
+            </RadzenProfileMenu>
+        </div>
+    </RadzenHeader>
+    <RadzenBody onclick="@(() => {sidebar1Expanded = false; return;})">
+        <main>
+            <article class="content px-sm-4">
+                @Body
+            </article>
+        </main>
+    </RadzenBody>
+    @*    <RadzenFooter>
+    <div style="text-align:center">
+    Copyright © 2023 Amicasoft. All rights reserved.
+    </div>
+    </RadzenFooter>*@
+    <RadzenSidebar class="d-none d-sm-block" @bind-Expanded="@sidebarExpanded" Responsive="true">
+        <RadzenPanelMenu>
+            <RadzenPanelMenuItem Text="Home" Icon="home" Path="./" />
+            <RadzenPanelMenuItem Text="My Documents" Path="my-documents" Icon="picture_as_pdf" />
+        </RadzenPanelMenu>
+    </RadzenSidebar>
+</RadzenLayout>
+<RadzenSidebar class="d-sm-none" @bind-Expanded="@sidebar1Expanded" Responsive="true" Style="top:51px; bottom:0px;">
+    <RadzenPanelMenu Click="@(() => {sidebar1Expanded = false; return;})">
+        <RadzenPanelMenuItem Text="Home" Icon="home" Path="./" />
+        <RadzenPanelMenuItem Text="My Documents" Path="my-documents" Icon="picture_as_pdf" />
+    </RadzenPanelMenu>
+</RadzenSidebar>
+@code {
+    bool sidebarExpanded = true;
+    bool sidebar1Expanded = false;
+}

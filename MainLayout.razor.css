@@ -1,0 +1,25 @@
+::deep .rz-navigation-item .rz-navigation-item-wrapper,
+::deep .rz-navigation-item .rz-navigation-item-wrapper .item-text {
+    align-items: center !important;
+    display: flex !important;
+}
+
+.initial-avatar {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    background-color: var(--rz-secondary-light) !important;
+    color: #fff;
+    font-size: 40px;
+    border-radius: 50%;
+    width: 80px;
+    height: 80px;
+    border-color: var(--rz-secondary) !important;
+    border-width: 5px;
+    border-style: solid;
+}
+
+::deep .rz-profile-menu .rz-navigation-menu {
+    box-shadow: var(--rz-shadow-10) !important;
+    width: 250px;
+}
