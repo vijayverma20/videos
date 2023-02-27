@@ -1,0 +1,52 @@
+﻿<MudAvatar Color="Color.Inherit" @onclick=ToggleUserDropdown Size="Size.Medium" Class="cursor-pointer">
+    @GetUserFallbackImageText()
+</MudAvatar>
+
+<MudPopover Open="@userDropdownOpen" Fixed="true" Class="px-4 pt-4 user-profuile" OverflowBehavior="OverflowBehavior.FlipNever"
+            AnchorOrigin="Origin.BottomRight" TransformOrigin="Origin.TopRight" Style="min-width:250px">
+    <MudIconButton Style="position: absolute;right: 0px;top: 0px;" OnClick="@ToggleUserDropdown" Class="ml-auto" Icon="@Icons.Material.Filled.Close">
+    </MudIconButton>
+    <MudGrid Justify="Justify.Center" Class="d-flex align-center justify-center flex-column">
+        <MudItem Class="d-flex align-center justify-center mud-width-full">
+            <MudAvatar Color="Color.Inherit" Style="width:100px; height:100px; font-size:3.75rem">@GetUserFallbackImageText()</MudAvatar>
+        </MudItem>
+        <MudItem Class="d-flex align-center justify-center flex-column mud-width-full">
+            <MudText Typo="Typo.subtitle2">@GetUserName()</MudText>
+            <MudText Typo="Typo.body2">@GetUserEmail()</MudText>
+        </MudItem>
+        <MudDivider Class="mud-width-full" Light="true" />
+        <MudItem Class="pa-0 mud-width-full">
+            <MudList>
+                <MudListItem Icon="@Icons.Material.Filled.Language">
+                    <MudSelect Class="user-profuile-language" Margin="Margin.Dense" T="string" Label="@LocalizerService["Language"]"
+                               Variant="Variant.Text"
+                               Value="@LocalizerService.GetLanguage()" ValueChanged="@(e => LocalizerService.SetLanguage((string)e!))">
+                        <MudSelectItem Value="@("en-US")">English</MudSelectItem>
+                        <MudSelectItem Value="@("sv-SE")">Svenska</MudSelectItem>
+                    </MudSelect>
+                    @*<img Fluid="true" Style="height:55px;" Class="ml-2" src="assets/images/@LocalizerService.GetLanguage()-icon.png" />*@
+                </MudListItem>
+                <MudDivider Light="true" />
+                @if (UserService.IsLoggedIn)
+                {
+                    <MudListItem Class="cursor-pointer" @onclick="UserService.Logout"
+                             Color="Color.Inherit"
+                             Variant="Variant.Text"
+                             Icon="@Icons.Material.Filled.Logout"
+                             Style="text-transform:none">
+                        @LocalizerService["Logout"]
+                    </MudListItem>
+                }
+                else
+                {
+                    <MudLink Class="d-flex" Href="account/login" Underline="Underline.None">
+                        <MudIcon Icon="@Icons.Material.Filled.Login" Class="darken-1 shades-text text-white" Size="Size.Medium" Title="Login" />
+                        <MudText Class="darken-1 shades-text text-white pl-2" Align="Align.Center">
+                            Login
+                        </MudText>
+                    </MudLink>
+                }
+            </MudList>
+        </MudItem>
+    </MudGrid>
+</MudPopover>

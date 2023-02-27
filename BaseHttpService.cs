@@ -13,6 +13,8 @@ namespace RSP.Dashboard.Services.Services.Shared
             this.httpClient = httpClient;
         }
 
+        public event Action OnNoRegionError;
+
         public async virtual Task<T> Get<T>(string endpoint, CancellationToken cancellationToken)
         {
             var request = new HttpRequestMessage(HttpMethod.Get, endpoint);
@@ -97,6 +99,8 @@ namespace RSP.Dashboard.Services.Services.Shared
             try
             {
                 var error = JsonConvert.DeserializeObject<ErrorModel>(content);
+                if (error.Title == "User hasn't been granted access to any region." && error.Type == "MultitenancyException")
+                    OnNoRegionError?.Invoke();
                 return error;
             }
             catch
