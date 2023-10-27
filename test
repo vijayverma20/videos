@@ -1,0 +1,59 @@
+public static DateTime GetNextInvoiceSubscriptionDate(DateTime currentSubscriptionDate, PaymentFrequency premiumFrequency)
+{
+    if (premiumFrequency == PaymentFrequency.MONTHLY)
+    {
+        return currentSubscriptionDate.AddDays(DateTime.DaysInMonth(currentSubscriptionDate.AddMonths(1).Year, currentSubscriptionDate.AddMonths(1).Month));
+    }
+    else if (premiumFrequency == PaymentFrequency.QUARTERLY)
+    {
+        var count = 1;
+        var days = 0;
+        while (count <= 3)
+        {
+            days = days + DateTime.DaysInMonth(currentSubscriptionDate.AddMonths(count).Year, currentSubscriptionDate.AddMonths(count).Month);
+            count++;
+        }
+
+        return currentSubscriptionDate.AddDays(days);
+    }
+    else if (premiumFrequency == PaymentFrequency.TERTIAL)
+    {
+        var count = 1;
+        var days = 0;
+        while (count <= 4)
+        {
+            days = days + DateTime.DaysInMonth(currentSubscriptionDate.AddMonths(count).Year, currentSubscriptionDate.AddMonths(count).Month);
+            count++;
+        }
+
+        return currentSubscriptionDate.AddDays(days);
+    }
+    else if (premiumFrequency == PaymentFrequency.SEMI_ANNUAL)
+    {
+        var count = 1;
+        var days = 0;
+        while (count <= 6)
+        {
+            days = days + DateTime.DaysInMonth(currentSubscriptionDate.AddMonths(count).Year, currentSubscriptionDate.AddMonths(count).Month);
+            count++;
+        }
+
+        return currentSubscriptionDate.AddDays(days);
+    }
+    else if (premiumFrequency == PaymentFrequency.ANNUAL)
+    {
+        var count = 1;
+        var days = 0;
+        while (count <= 12)
+        {
+            days = days + DateTime.DaysInMonth(currentSubscriptionDate.AddMonths(count).Year, currentSubscriptionDate.AddMonths(count).Month);
+            count++;
+        }
+
+        return currentSubscriptionDate.AddDays(days);
+    }
+    else
+    {
+        throw new ApplicationException($"Invalid PremiumFrequency {premiumFrequency}");
+    }
+}
